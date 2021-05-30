@@ -1,0 +1,12 @@
+{
+  "name": "previsao-do-tempo",
+  "displayName": "previsao-do-tempo",
+  "expo": {
+    "name": "previsao-do-tempo",
+    "slug": "previsao-do-tempo",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

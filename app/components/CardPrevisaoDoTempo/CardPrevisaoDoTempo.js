@@ -1,18 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import moment from "moment";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const CardPrevisaoDoTempo = ({data}) => {
+  
   moment.locale('pt-br');
- 
-  const temperature = data.temperature.replace('+','').substring(0,2);
-  const day = moment().day(data.day).format("dddd")
+  const temperatura = data.temperature.replace('+','').substring(0,2);
+  const day = moment().day(data.day).format("dddd");
+
 
     return (
       <View>
         <View style={styles.container}>
-        <Text style={{ fontWeight: "bold", color: '#fff' }}>{day}</Text>     
-        <Text style={{ fontSize: 17, fontWeight: "bold", color: '#fff' }}>{temperature} °C</Text>
+        <Text style={{ fontWeight: "bold", color: '#fff' }}>{day}</Text> 
+        <MaterialCommunityIcons size={48} name="weather-sunny" color={"#fff"} />
+        <Text style={{ fontSize: 17, fontWeight: "bold", color: '#fff' }}>{temperatura} °C</Text>
       </View> 
       </View>
     )
@@ -35,4 +38,4 @@ const styles = StyleSheet.create({
       },
 })
 
-export default CardPrevisaoDoTempo
+export default CardPrevisaoDoTempo;

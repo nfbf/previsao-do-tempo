@@ -1,55 +1,36 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { Button, Input } from "react-native-elements";
-//import teste from "./assets/teste3.png";
-//import * as Font from "expo-font";
-//import AppLoading from "expo-app-loading";
+import logo from "../images/sol.png";
 import { consultarTempo } from "./../../services/previsaoService";
 //import { validarString } from "./validations/validarString";
 
-/*const fetchFont = () => {
-  return Font.loadAsync({
-    "KoHo-Light": require("./assets/fonts/KoHo-Light.ttf"),
-  });
-};*/
-
 const Home = ({ navigation }) => {
-  //const [fontLoaded, setFontLoaded] = useState(false);
-  const [cidade, setCidade] = React.useState('');
-
+  let [cidade, setCidade] = React.useState("");
   const validarCidade = async () => {
     navigation.navigate("PrevisaoDoTempo", await consultarTempo(cidade));
   };
 
-  /*  if (!fontLoaded) {
-    return (
-      <AppLoading
-        onError={() => console.log("ERRO")}
-        startAsync={fetchFont}
-        onFinish={() => {
-          setFontLoaded(true);
-        }}
-      />
-    );
-  }*/
-
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.titulo}>Previsão do tempo</Text>
-        <Text style={styles.subtitulo}>Digite o nome da cidade:</Text>
-        <Input
-          onChangeText={(texto) => setCidade(texto)}
-          placeholder="Cidade"
-        />
-        <Button
-          buttonStyle={styles.consultar}
-          onPress={() => {
-            validarCidade(cidade);
-          }}
-          title="Consultar"
-        ></Button>
-        <Button buttonStyle={styles.consultar} title="Sair"></Button>
+        <View style={styles.headerContainer}>
+          <Image source={logo} style={styles.logo} />
+          <Text style={styles.titulo}>PREVISÃO DO TEMPO</Text>
+        </View>
+
+        <View style={styles.bodyContainer}>
+          <Text style={styles.informacao}>Para começar, </Text>
+          <Text style={styles.informacao}>digite o nome da sua cidade: </Text>
+          <Text>{"\n"}</Text>
+          <Input inputContainerStyle={styles.inputContainer} placeholderTextColor="#fff" inputStyle={styles.inputText} 
+           onChangeText={(texto) => setCidade(texto.replace(/\s/g, ''))}  placeholder="Cidade" />
+        </View>
+
+        <View style={styles.btContainer}>
+          <Button type="outline" titleStyle={{ color: "#fff" }} 
+                  buttonStyle={styles.btConsultar} onPress={() => {validarCidade(cidade);}}  title="Consultar"></Button>
+        </View>
       </View>
     </>
   );
@@ -58,48 +39,58 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#2471A3",
   },
-  logo: {
-    width: 420,
-    height: 180,
+  bodyContainer: {
+    padding: 10,
+    backgroundColor: "#FFFFFF20",
+  },
+  headerContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 60,
+  },
+  inputContainer: {
+    borderColor: "#fff",
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    borderRadius:5,
+    padding:3,
+    width: 340,
+  },
+  btContainer: {
+    padding: 10,
+    backgroundColor: "#FFFFFF20",
   },
   titulo: {
-    fontSize: 36,
-    textAlign: "right",
-    padding: 40,
+    fontSize: 24,
     color: "#fff",
-    paddingTop: 90,
   },
-  subtitulo: {
-    paddingTop: 240,
-    textAlign: "left",
-    padding: 10,
-    fontSize: 18,
-    color: "#474444",
-  },
-  consultar: {
-    backgroundColor: "#03989E",
+  btConsultar: {
+    borderColor: "#fff",
     padding: 15,
-    width: 380,
+    width: 345,
     marginLeft: 5,
+    color: "#fff",
   },
-  consultar2: {
-    width: 350,
+  informacao: {
+    color: "#fff",
+    textAlign: "left",
+    fontSize: 20,
+  },
+  inputText: {
+    color: '#fff',
+    borderColor: "#fff",
+    fontSize: 18,
+  },
+  logo: {
     alignItems: "center",
-    backgroundColor: "#fff",
-    padding: 10,
-    color: "#03989E",
-    borderRadius: 5,
-    marginLeft: 20,
-    marginTop: 200,
-  },
-
-  image: {
-    flex: 1,
-    resizeMode: "cover",
     justifyContent: "center",
-    width: 420,
-    height: 480,
+    height: 150,
+    width: 150,
   },
 });
 

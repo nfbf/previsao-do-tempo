@@ -2,12 +2,13 @@ import React from "react";
 import { StyleSheet, ScrollView, View } from "react-native";
 import CardPrevisaoDoTempo from "../CardPrevisaoDoTempo/CardPrevisaoDoTempo";
 
-const CardPrevisaoDoTempoScrollView = ({days}) => {
-  return (
+const CardPrevisaoDoTempoScrollView = ({days, iconName}) => {
+  
+return (
     <View style={styles.container}>
       <ScrollView style={{ flex: 1 }} horizontal={true}>
-        {[...days].map((data, i) => (
-          <CardPrevisaoDoTempo key={i} data={data} />
+        {[...days].splice(0, days.length).map((data, i) => (
+          <CardPrevisaoDoTempo key={i} data={data} iconName={iconName} />
         ))}
       </ScrollView>
     </View>

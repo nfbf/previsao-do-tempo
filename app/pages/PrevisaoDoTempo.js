@@ -2,23 +2,25 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CardPrevisaoDoTempoScrollView from "../components/CardPrevisaoDoTempoScrollView/CardPrevisaoDoTempoScrollView";
-import { textDescricao, previsaoStyle } from "../../util/PrevisaoDoTempoUtil";
+import { traduzirDescricao, previsaoStyle } from "../../util/PrevisaoDoTempoUtil";
 import  moment from 'moment';
 import 'moment/locale/pt-br';
 
 
-const PrevisaoDoTempo = ({ route }) => {
+const PrevisaoDoTempo = ({route}) => {
+  
   moment.locale('pt-br');
   const dataHora = moment().format('DD/MM/YYYY HH:mm');
   const dia = moment().format('dddd');
   const temperatura = route.params.dado.temperature.replace("+", "");
-  const descricao = textDescricao(route.params.dado.description);
+  const descricao = traduzirDescricao(route.params.dado.description);
   
   return (
-    <View style={[styles.weatherContainer,{backgroundColor: previsaoStyle[descricao].color},]}>
+    <View style={[styles.weatherContainer,{backgroundColor: previsaoStyle[descricao].color}]}>
       <View style={styles.headerContainer}>
         <MaterialCommunityIcons size={78} name={previsaoStyle[descricao].icon} color={"#fff"} />
         <Text style={styles.tempText}>{temperatura}</Text>
+        <Text style={styles.subtitle2}>Velocidade do vento: {route.params.dado.wind} </Text>
       </View>
       
       <View style={styles.bodyContainer}>
@@ -27,7 +29,7 @@ const PrevisaoDoTempo = ({ route }) => {
         <Text style={styles.subtitle}> {dataHora}</Text>
       </View>
       
-      <CardPrevisaoDoTempoScrollView days={route.params.dado.forecast} />
+      <CardPrevisaoDoTempoScrollView days={route.params.dado.forecast} iconName ={previsaoStyle[descricao].icon}/>
     </View>
   );
 };
@@ -54,11 +56,16 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   title: {
-    fontSize: 35,
+    fontSize: 31,
     color: "#fff",
   },
   subtitle: {
     fontSize: 20,
+    color: "#fff",
+  },
+
+  subtitle2: {
+    fontSize: 18,
     color: "#fff",
   },
 });

@@ -1,7 +1,8 @@
-export const textDescricao = (descricao) => {
+export const traduzirDescricao = (descricao) => {
   if (descricao === 'Partly cloudy') return "ParcialmenteNublado";
   else if (descricao === 'Sunny') return "Ensolarado";
   else if (descricao === 'Light rain, mist') return "ChuvaFracaNeblina";
+  else if (descricao === 'Light rain') return "ChuvaFracaNeblina";
   else if (descricao === 'Patchy rain possible') return "PossibilidadeDeChuvaFragmentada";
   else if (descricao === 'Light rain shower') return "ChuvaFraca";
   else if (descricao === 'Light rain with thunderstorm') return "ChuvaFracaComTrovoada";

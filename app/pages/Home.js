@@ -1,14 +1,18 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
-import { Button, Input } from "react-native-elements";
+import { Button, Input, Icon } from "react-native-elements";
 import logo from "../images/sol.png";
 import { consultarTempo } from "./../../services/previsaoService";
 //import { validarString } from "./validations/validarString";
 
 const Home = ({ navigation }) => {
   let [cidade, setCidade] = React.useState("");
-  const validarCidade = async () => {
-    navigation.navigate("PrevisaoDoTempo", await consultarTempo(cidade));
+  
+  /* Método para consulta da previsão do tempo de uma cidade informada pelo usuário */
+  const consultarPrevisaoDoTempo = async (cidade) => {
+   if (!cidade) alert("Informe o nome de uma cidade.")
+   else navigation.navigate("PrevisaoDoTempo", await consultarTempo(cidade));
+  
   };
 
   return (
@@ -23,13 +27,13 @@ const Home = ({ navigation }) => {
           <Text style={styles.informacao}>Para começar, </Text>
           <Text style={styles.informacao}>digite o nome da sua cidade: </Text>
           <Text>{"\n"}</Text>
-          <Input inputContainerStyle={styles.inputContainer} placeholderTextColor="#fff" inputStyle={styles.inputText} 
-           onChangeText={(texto) => setCidade(texto.replace(/\s/g, ''))}  placeholder="Cidade" />
+          <Input inputContainerStyle={styles.inputContainer} placeholderTextColor="#fff" inputStyle={styles.inputText}
+                 onChangeText={(texto) => setCidade(texto.replace(/\s/g, ""))}  placeholder="Cidade" />
         </View>
 
         <View style={styles.btContainer}>
-          <Button type="outline" titleStyle={{ color: "#fff" }} 
-                  buttonStyle={styles.btConsultar} onPress={() => {validarCidade(cidade);}}  title="Consultar"></Button>
+          <Button type="outline" titleStyle={{ color: "#fff" }} buttonStyle={styles.btConsultar} 
+          onPress={() => {consultarPrevisaoDoTempo(cidade);}}  title="Consultar"></Button>
         </View>
       </View>
     </>
@@ -54,12 +58,9 @@ const styles = StyleSheet.create({
   inputContainer: {
     borderColor: "#fff",
     borderBottomWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderRadius:5,
-    padding:3,
-    width: 340,
+    borderRadius: 5,
+    padding: 3,
+    width: 340, 
   },
   btContainer: {
     padding: 10,
@@ -70,11 +71,11 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   btConsultar: {
-    borderColor: "#fff",
     padding: 15,
     width: 345,
     marginLeft: 5,
     color: "#fff",
+    borderColor: "#fff",
   },
   informacao: {
     color: "#fff",
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   inputText: {
-    color: '#fff',
+    color: "#fff",
     borderColor: "#fff",
     fontSize: 18,
   },

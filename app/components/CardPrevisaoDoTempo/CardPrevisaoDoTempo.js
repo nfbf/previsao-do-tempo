@@ -4,9 +4,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {nomeDodiaDaSemana} from '../../../util/CardPrevisaoDoTempoUtil';
 
 const CardPrevisaoDoTempo = ({data, iconName}) => {
-  let temperatura = data.temperature.replace('+','').substring(0,2);
-  temperatura = Number(temperatura)? temperatura.concat(' °C') : 'N/D' ;
-  const nomeDiaDaSemana = nomeDodiaDaSemana(data.day);
+  let temperatura = data.temperature.replace('+','').substring(0,2);  /* Apenas o valor exato da temperatura. */
+  temperatura = Number(temperatura)? temperatura.concat(' °C') : 'N/D' ; /* Se não retornar o valor da temperatura, é exibido N/D (Não definido). */
+  const nomeDiaDaSemana = nomeDodiaDaSemana(data.day); /* Ao passar o número do dia da semana, ele retorna o nome do dia. */
 
     return (
       <View>
